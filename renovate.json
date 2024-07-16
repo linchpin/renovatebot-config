@@ -23,9 +23,10 @@
         "matchManagers": ["npm"],
         "labels": ["npm", "wordpress", "themes", "maintenance"],
         "groupName": "NPM Dependencies",
-        "excludePackagePatterns": ["^node$", "^npm$", "^engines$"],
+        "excludePackagePatterns": ["^npm$", "^engines$"],
         "automerge": false,
-        "matchFileNames": ["themes/**"]
+        "matchFileNames": ["themes/**"],
+        "packageNames": ["node"]
       },
       {
         "commitMessagePrefix": "[Project] Build Process - ",
@@ -73,17 +74,6 @@
         "labels": ["wordpress", "composer", "maintenance"],
         "groupName": "Project Packagist and .org Themes and Plugins",
         "matchFileNames": ["composer.json"]
-      },
-      {
-        "matchManagers": ["npm"],
-        "matchUpdateTypes": ["major"],
-        "matchPackageNames": ["node", "npm"],
-        "enabled": false
-      },
-      {
-        "matchManagers": ["composer"],
-        "matchPackageNames": ["php"],
-        "enabled": false
       }
     ],
     "rebaseWhen": "conflicted",
