@@ -18,7 +18,8 @@
   "baseBranches": ["/^maintenance\\/.*/"],
   "packageRules": [
     {
-      "commitMessagePrefix": "update(DEP): [Project] ",
+      "commitMessagePrefix": "build(DEP): [Project] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Node/npm Dependencies",
       "groupSlug": "maintenance-node",
       "description": "Only update the build process dependencies when a major update is available.",
@@ -28,10 +29,10 @@
       "matchFileNames": ["package.json"],
       "matchPackageNames": ["/^node$/", "/^npm/", "/^engines$/"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [Project] ",
+      "commitMessagePrefix": "build(DEP): [Project] ",
       "groupName": "npm Dependencies",
       "groupSlug": "maintenance-npm",
       "description": "Update the build process dependencies when a minor, patch, pin, or digest update is available.",
@@ -41,10 +42,11 @@
       "matchFileNames": ["package.json"],
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [Project] ",
+      "commitMessagePrefix": "platform(DEP): [Project] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "PHP Release",
       "groupSlug": "maintenance-php-release",
       "matchUpdateTypes": ["major"],
@@ -53,10 +55,10 @@
       "labels": ["composer", "maintenance", "build"],
       "automerge": false,
       "matchFileNames": ["composer.json"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}platform(DEP): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [Project] ",
+      "commitMessagePrefix": "platform(DEP): [Project] ",
       "groupName": "Composer Dependencies",
       "groupSlug": "maintenance-composer-major",
       "labels": ["composer", "maintenance", "build"],
@@ -65,10 +67,10 @@
       "matchPackageNames": ["!/^wpackagist/", "!/^linchpin/"],
       "matchFileNames": ["composer.json"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}platform(DEP): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [Project] ",
+      "commitMessagePrefix": "build(DEP): [Project] ",
       "groupName": "Composer Dependencies",
       "groupSlug": "maintenance-composer-minor",
       "labels": ["composer", "maintenance", "build"],
@@ -77,11 +79,12 @@
       "matchPackageNames": ["!/^php$", "!/^wpackagist/", "!/^linchpin/"],
       "matchFileNames": ["composer.json"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(NPM): [WordPress] ",
       "groupName": "Custom Theme(s) npm Dependencies",
+      "commitMessageSuffix": " - Major",
       "groupSlug": "maintenance-wordpress-custom-themes-npm-major",
       "matchFileNames": ["themes/**/package.json"],
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
@@ -90,10 +93,10 @@
       "labels": ["npm", "wordpress", "themes", "maintenance"],
       "prBodyColumns": [ "Package", "Change", "Age", "Adoption", "Passing", "Confidence" ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(NPM): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(NPM): [WordPress] ",
       "groupName": "Custom Theme(s) npm Dependencies",
       "groupSlug": "maintenance-wordpress-custom-themes-npm-minor",
       "labels": ["npm", "wordpress", "themes", "maintenance"],
@@ -103,10 +106,11 @@
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
       "prBodyColumns": ["Package", "Change","Age","Adoption","Passing","Confidence"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(NPM): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(NPM): [WordPress] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Custom Plugin(s) npm Dependencies",
       "groupSlug": "maintenance-wordpress-custom-plugins-npm-major",
       "labels": ["npm", "wordpress", "plugins", "maintenance"],
@@ -116,10 +120,10 @@
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
       "prBodyColumns": ["Package", "Change","Age","Adoption","Passing","Confidence"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(NPM): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] - ",
+      "commitMessagePrefix": "deps(NPM): [WordPress] - ",
       "groupName": "Custom Plugin(s) npm Dependencies",
       "groupSlug": "maintenance-wordpress-custom-plugins-npm-minor",
       "labels": ["npm", "wordpress", "plugins", "maintenance"],
@@ -131,20 +135,21 @@
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
-      "matchUpdateTypes": ["major"],
-      "matchManagers": ["composer"],
-      "labels": ["composer", "wordpress", "themes", "maintenance"],
+      "commitMessagePrefix": "deps(CMP): [WordPress] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Custom Theme(s) Composer Dependencies",
       "groupSlug": "maintenance-wordpress-custom-themes-composer-major",
-      "automerge": false,
+      "labels": ["composer", "wordpress", "themes", "maintenance"],
+      "matchUpdateTypes": ["major"],
+      "matchManagers": ["composer"],
       "matchFileNames": ["themes/**/composer.json"],
       "matchPackageNames": ["!/^php$/"],
       "prBodyColumns": ["Package", "Change","Age","Adoption"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "automerge": false,
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(CMP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(CMP): [WordPress] ",
       "groupName": "Custom Theme(s) Composer Dependencies",
       "groupSlug": "maintenance-wordpress-custom-themes-composer-minor",
       "labels": ["composer", "wordpress", "themes", "maintenance"],
@@ -154,10 +159,11 @@
       "matchPackageNames": ["!/^php$/"],
       "prBodyColumns": ["Package", "Change","Age","Adoption"],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(CMP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(CMP): [WordPress] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Custom Plugin(s) Composer Dependencies",
       "groupSlug": "maintenance-wordpress-custom-plugins-composer-major",
       "labels": ["composer", "wordpress", "plugins", "maintenance"],
@@ -167,10 +173,10 @@
       "matchFileNames": ["plugins/**/composer.json"],
       "matchPackageNames": [ "!php"],
       "prBodyColumns": ["Package", "Change","Age","Adoption"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(CMP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "deps(CMP): [WordPress] ",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchManagers": ["composer"],
       "labels": ["composer", "wordpress", "plugins", "maintenance"],
@@ -180,10 +186,11 @@
       "matchFileNames": ["plugins/**/composer.json"],
       "matchPackageNames": [ "!php"],
       "prBodyColumns": ["Package", "Change","Age","Adoption"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}deps(CMP): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "update(THEME): [WordPress] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Themes packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-themes-composer-major",
       "labels": ["wordpress", "composer", "maintenance", "major"],
@@ -195,10 +202,10 @@
         "linchpin/**theme"
       ],
       "prBodyColumns": ["Package", "Change"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(THEME): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "update(THEME): [WordPress] ",
       "groupName": "Themes packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-themes-composer-minor",
       "labels": ["wordpress", "composer", "maintenance", "themes", "minor"],
@@ -210,10 +217,11 @@
         "linchpin/**theme"
       ],
       "prBodyColumns": ["Package", "Change"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(THEME): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
+      "commitMessageSuffix": " - Major",
       "groupName": "Plugins packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-plugins-composer-major",
       "labels": ["wordpress", "composer", "maintenance"],
@@ -225,10 +233,10 @@
         "linchpin/**"
       ],
       "prBodyColumns": ["Package", "Change"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(DEP): [WordPress] ",
+      "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
       "groupName": "Plugins packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-plugins-composer-minor",
       "labels": ["wordpress", "composer", "maintenance", "plugins", "minor"],
@@ -240,7 +248,7 @@
         "linchpin/**"
       ],
       "prBodyColumns": ["Package", "Change"],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(DEP): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     }
   ]
 }
