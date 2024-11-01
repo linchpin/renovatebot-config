@@ -67,7 +67,7 @@
       "commitMessagePrefix": "[Project] Minor - ",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchManagers": ["composer"],
-      "matchPackageNames": ["!/^wpackagist/", "!/^linchpin/"],
+      "matchPackageNames": ["!php", "!/^wpackagist/", "!/^linchpin/"],
       "labels": ["composer", "maintenance", "build"],
       "groupName": "Composer Minor Dependencies",
       "automerge": false,
