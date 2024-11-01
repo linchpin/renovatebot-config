@@ -106,7 +106,7 @@
       "groupSlug": "maintenance-wordpress-custom-plugins-npm-major",
       "automerge": false,
       "matchFileNames": ["plugins/**/package.json"],
-      "matchPackageNames": [ "!node"],
+      "matchPackageNames": [ "!node", "!engines" ],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
