@@ -126,6 +126,7 @@
       "groupSlug": "maintenance-wordpress-custom-themes-composer-major",
       "automerge": false,
       "matchFileNames": ["themes/**/composer.json"],
+      "matchPackageNames": [ "!php"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -137,6 +138,7 @@
       "groupSlug": "maintenance-wordpress-custom-themes-composer-minor",
       "automerge": false,
       "matchFileNames": ["themes/**/composer.json"],
+      "matchPackageNames": [ "!php"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -148,6 +150,7 @@
       "groupSlug": "maintenance-wordpress-custom-plugins-composer-major",
       "automerge": false,
       "matchFileNames": ["plugins/**/composer.json"],
+      "matchPackageNames": [ "!php"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -159,6 +162,7 @@
       "groupSlug": "maintenance-wordpress-custom-plugins-composer-minor",
       "automerge": false,
       "matchFileNames": ["plugins/**/composer.json"],
+      "matchPackageNames": [ "!php"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
