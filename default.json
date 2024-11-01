@@ -198,7 +198,7 @@
       "labels": ["wordpress", "composer", "maintenance"],
       "groupName": "Plugins packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-plugins-composer-major",
-      "matchFileNames": ["plugins/**/composer.json"],
+      "matchFileNames": ["composer.json"],
       "prBodyColumns": ["Package", "Change"],
       "matchPackageNames": [
         "wpackagist-plugin/**",
@@ -214,11 +214,11 @@
       "labels": ["wordpress", "composer", "maintenance", "plugins", "minor"],
       "groupName": "Plugins packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-plugins-composer-minor",
-      "matchFileNames": ["plugins/**/composer.json"],
+      "matchFileNames": ["composer.json"],
       "prBodyColumns": ["Package", "Change"],
       "matchPackageNames": [
-        "wpackagist-plugin/**",
-        "linchpin/**"
+        "^wpackagist-plugin",
+        "^linchpin"
       ],
       "commitBody": "{{#each upgrades as |upgrade|}}update(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}",
       "commitBodyTable": true
