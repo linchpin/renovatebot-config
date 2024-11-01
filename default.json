@@ -67,7 +67,7 @@
       "commitMessagePrefix": "[Project] Minor - ",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchManagers": ["composer"],
-      "matchPackageNames": ["!php", "!/^wpackagist/", "!/^linchpin/"],
+      "matchPackageNames": ["!/^php$", "!/^wpackagist/", "!/^linchpin/"],
       "labels": ["composer", "maintenance", "build"],
       "groupName": "Composer Minor Dependencies",
       "automerge": false,
@@ -83,7 +83,8 @@
       "groupSlug": "maintenance-wordpress-custom-themes-npm-major",
       "automerge": false,
       "matchFileNames": ["themes/**/package.json"],
-      "matchPackageNames": [ "!node"],
+      "matchPackageNames": ["!/^node$/", "!/^engines$/"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption","Passing","Confidence"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -95,6 +96,7 @@
       "automerge": false,
       "matchFileNames": ["themes/**/package.json"],
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption","Passing","Confidence"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -107,6 +109,7 @@
       "automerge": false,
       "matchFileNames": ["plugins/**/package.json"],
       "matchPackageNames": ["!/^node$/", "!/^engines$/"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption","Passing","Confidence"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -131,6 +134,7 @@
       "automerge": false,
       "matchFileNames": ["themes/**/composer.json"],
       "matchPackageNames": ["!/^php$/"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -143,6 +147,7 @@
       "automerge": false,
       "matchFileNames": ["themes/**/composer.json"],
       "matchPackageNames": ["!/^php$/"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -155,6 +160,7 @@
       "automerge": false,
       "matchFileNames": ["plugins/**/composer.json"],
       "matchPackageNames": [ "!php"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -167,6 +173,7 @@
       "automerge": false,
       "matchFileNames": ["plugins/**/composer.json"],
       "matchPackageNames": [ "!php"],
+      "prBodyColumns": ["Package", "Change","Age","Adoption"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
