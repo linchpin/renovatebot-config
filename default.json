@@ -173,7 +173,7 @@
       "commitBody": "{{#each upgrades as |upgrade|}}update(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}",
       "matchPackageNames": [
         "wpackagist-theme/**",
-        "linchpin/**"
+        "linchpin/**theme"
       ]
     },
     {
@@ -187,8 +187,8 @@
       "prBodyColumns": ["Package", "Change"],
       "commitBody": "{{#each upgrades as |upgrade|}}update(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}",
       "matchPackageNames": [
-        "wpackagist-theme{/,}**",
-        "linchpin{/,}**"
+        "wpackagist-theme/**",
+        "linchpin/**theme"
       ]
     },
     {
