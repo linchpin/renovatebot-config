@@ -19,14 +19,14 @@
   "packageRules": [
     {
       "commitMessagePrefix": "[Project] Major - ",
-      "description": "Only update the build process dependencies when a major or minor update is available.",
+      "description": "Only update the build process dependencies when a major update is available.",
       "matchUpdateTypes": ["major"],
       "labels": ["npm", "maintenance", "build"],
       "matchManagers": ["npm"],
       "automerge": false,
       "groupName": "Node/npm Release",
       "matchFileNames": ["package.json"],
-      "matchPackageNames": ["!/^node$/", "!/^npm$/", "!/^engines$/"],
+      "matchPackageNames": ["^node", "^npm", "^engines"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -83,6 +83,7 @@
       "groupSlug": "maintenance-wordpress-custom-themes-npm-major",
       "automerge": false,
       "matchFileNames": ["themes/**/package.json"],
+      "matchPackageNames": [ "!node"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -93,6 +94,7 @@
       "groupName": "Custom Theme(s) npm Dependencies",
       "automerge": false,
       "matchFileNames": ["themes/**/package.json"],
+      "matchPackageNames": [ "!node"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -104,6 +106,7 @@
       "groupSlug": "maintenance-wordpress-custom-plugins-npm-major",
       "automerge": false,
       "matchFileNames": ["plugins/**/package.json"],
+      "matchPackageNames": [ "!node"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -115,6 +118,7 @@
       "groupSlug": "maintenance-wordpress-custom-plugins-npm-minor",
       "automerge": false,
       "matchFileNames": ["plugins/**/package.json"],
+      "matchPackageNames": [ "!node"],
       "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
@@ -221,8 +225,8 @@
       "matchFileNames": ["composer.json"],
       "prBodyColumns": ["Package", "Change"],
       "matchPackageNames": [
-        "^wpackagist-plugin",
-        "^linchpin"
+        "wpackagist-plugin/**",
+        "linchpin/**"
       ],
       "commitBody": "{{#each upgrades as |upgrade|}}update(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}",
       "commitBodyTable": true
