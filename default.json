@@ -455,9 +455,6 @@
       "matchManagers": [
         "composer"
       ],
-      "matchFileNames": [
-        "themes/**/composer.json"
-      ],
       "matchPackageNames": [
         "wpackagist-theme/**",
         "linchpin/**theme"
@@ -488,9 +485,6 @@
         "pin",
         "digest"
       ],
-      "matchFileNames": [
-        "composer.json"
-      ],
       "matchPackageNames": [
         "wpackagist-theme/**",
         "linchpin/**theme"
@@ -516,9 +510,6 @@
       ],
       "matchManagers": [
         "composer"
-      ],
-      "matchFileNames": [
-        "composer.json"
       ],
       "matchPackageNames": [
         "wpackagist-plugin/**",
@@ -549,9 +540,6 @@
         "patch",
         "pin",
         "digest"
-      ],
-      "matchFileNames": [
-        "composer.json"
       ],
       "matchPackageNames": [
         "wpackagist-plugin/**",
