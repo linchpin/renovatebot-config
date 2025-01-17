@@ -508,9 +508,6 @@
       "matchUpdateTypes": [
         "major"
       ],
-      "matchManagers": [
-        "composer"
-      ],
       "matchPackageNames": [
         "wpackagist-plugin/**",
         "linchpin/**"
@@ -531,9 +528,6 @@
         "maintenance",
         "plugins",
         "minor"
-      ],
-      "matchManagers": [
-        "composer"
       ],
       "matchUpdateTypes": [
         "minor",
