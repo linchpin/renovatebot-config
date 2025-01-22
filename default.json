@@ -504,18 +504,80 @@
     {
       "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
       "commitMessageSuffix": " - Major",
-      "groupName": "Plugins packagist.linchpin.com and wordpress.org",
-      "groupSlug": "maintenance-wordpress-plugins-composer-major",
+      "groupName": "Plugins wordpress.org",
+      "groupSlug": "maintenance-wordpress-org-plugins-composer-major",
       "labels": [
         "wordpress",
         "composer",
-        "maintenance"
+        "maintenance",
+        "wporg"
       ],
       "matchUpdateTypes": [
         "major"
       ],
       "matchPackageNames": [
-        "wpackagist-plugin/**",
+        "wpackagist-plugin/**"
+      ],
+      "matchManagers": [
+        "composer"
+      ],
+      "matchFileNames": [
+        "composer.json"
+      ],
+      "prBodyColumns": [
+        "Package",
+        "Change"
+      ],
+      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+    },
+    {
+      "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
+      "groupName": "Plugins wordpress.org",
+      "groupSlug": "maintenance-wordpress-org-plugins-composer-minor",
+      "labels": [
+        "wordpress",
+        "composer",
+        "maintenance",
+        "plugins",
+        "minor",
+        "wporg"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "matchPackageNames": [
+        "wpackagist-plugin/**"
+      ],
+      "matchManagers": [
+        "composer"
+      ],
+      "matchFileNames": [
+        "composer.json"
+      ],
+      "prBodyColumns": [
+        "Package",
+        "Change"
+      ],
+      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{{replace '-' ' ' {{ lookup (split depName '-') 1 }} }}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+    },
+    {
+      "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
+      "commitMessageSuffix": " - Major",
+      "groupName": "Plugins packagist.linchpin.com",
+      "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-major",
+      "labels": [
+        "wordpress",
+        "composer",
+        "maintenance",
+        "linchpinpkg"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchPackageNames": [
         "linchpin/**"
       ],
       "matchManagers": [
@@ -532,14 +594,15 @@
     },
     {
       "commitMessagePrefix": "update(PLUGIN): [WordPress] ",
-      "groupName": "Plugins packagist.linchpin.com and wordpress.org",
-      "groupSlug": "maintenance-wordpress-plugins-composer-minor",
+      "groupName": "Plugins packagist.linchpin.com",
+      "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-minor",
       "labels": [
         "wordpress",
         "composer",
         "maintenance",
         "plugins",
-        "minor"
+        "minor",
+        "linchpinpkg"
       ],
       "matchUpdateTypes": [
         "minor",
@@ -548,7 +611,6 @@
         "digest"
       ],
       "matchPackageNames": [
-        "wpackagist-plugin/**",
         "linchpin/**"
       ],
       "matchManagers": [
