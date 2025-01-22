@@ -455,6 +455,9 @@
       "matchManagers": [
         "composer"
       ],
+      "matchFileNames": [
+        "composer.json"
+      ],
       "matchPackageNames": [
         "wpackagist-theme/**",
         "linchpin/**theme"
@@ -478,6 +481,9 @@
       ],
       "matchManagers": [
         "composer"
+      ],
+      "matchFileNames": [
+        "composer.json"
       ],
       "matchUpdateTypes": [
         "minor",
@@ -515,6 +521,9 @@
       "matchManagers": [
         "composer"
       ],
+      "matchFileNames": [
+        "composer.json"
+      ],
       "prBodyColumns": [
         "Package",
         "Change"
@@ -544,6 +553,9 @@
       ],
       "matchManagers": [
         "composer"
+      ],
+      "matchFileNames": [
+        "composer.json"
       ],
       "prBodyColumns": [
         "Package",
