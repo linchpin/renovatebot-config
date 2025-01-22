@@ -512,6 +512,9 @@
         "wpackagist-plugin/**",
         "linchpin/**"
       ],
+      "matchManagers": [
+        "composer"
+      ],
       "prBodyColumns": [
         "Package",
         "Change"
@@ -538,6 +541,9 @@
       "matchPackageNames": [
         "wpackagist-plugin/**",
         "linchpin/**"
+      ],
+      "matchManagers": [
+        "composer"
       ],
       "prBodyColumns": [
         "Package",
