@@ -165,7 +165,7 @@
         "composer"
       ],
       "matchPackageNames": [
-        "!/^php$",
+        "!/^php$/",
         "!/^wpackagist/",
         "!/^wp-plugin/",
         "!/^wp-theme/",
