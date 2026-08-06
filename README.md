@@ -17,15 +17,21 @@ The default.json is used as a base config for all WordPress based Website projec
 - Group all [minor, patch, bump] **build** related `composer` packages into a single grouped pull request
 - Create individual [major] **build** related `composer` packages into single pull requests
 
-### wordpress.org, wpackagist, packagist.linchpin.com maintenance config
+### wordpress.org, wp-packages, wpackagist, packagist.linchpin.com maintenance config
+
+> Public wordpress.org plugins and themes may be sourced from either
+> [wp-packages](https://wp-packages.org) (`wp-plugin/*`, `wp-theme/*`) or the older
+> [wpackagist](https://wpackagist.org) (`wpackagist-plugin/*`, `wpackagist-theme/*`).
+> Both vendor prefixes are routed identically, so a project can migrate between them
+> without changing its Renovate config.
 
 #### WordPress Plugins
-- Group all [minor, patch, bump] **plugin** updates from `wpackagist` (wordpress.org) and `packagist.linchpin.com` into a single pull request
-- Create individual pull requests for any [major] **plugin** updates from `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
+- Group all [minor, patch, bump] **plugin** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` into a single pull request
+- Create individual pull requests for any [major] **plugin** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
 
 #### WordPress Themes
-- Group all [minor, patch, bump] **theme** updates from `wpackagist` (wordpress.org) and `packagist.linchpin.com` into a single pull request
-- Create individual pull requests for any [major] **theme** updates from `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
+- Group all [minor, patch, bump] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` into a single pull request
+- Create individual pull requests for any [major] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
 
 ### Linchpin Built Custom WordPress Plugins
 
