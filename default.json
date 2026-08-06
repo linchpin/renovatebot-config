@@ -588,7 +588,8 @@
         "major"
       ],
       "matchPackageNames": [
-        "linchpin/**"
+        "linchpin/**",
+        "!linchpin/coding-standards"
       ],
       "matchManagers": [
         "composer"
@@ -621,7 +622,8 @@
         "digest"
       ],
       "matchPackageNames": [
-        "linchpin/**"
+        "linchpin/**",
+        "!linchpin/coding-standards"
       ],
       "matchManagers": [
         "composer"
