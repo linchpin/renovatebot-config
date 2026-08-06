@@ -8,13 +8,15 @@ name: Validate Renovate presets
 on:
   pull_request:
     paths:
-      - '**.json'
+      # Presets live at the repo root. Add a pattern here if that ever changes.
+      - '*.json'
       - '.github/workflows/validate-renovate-presets.yml'
   push:
     branches:
       - main
     paths:
-      - '**.json'
+      # Presets live at the repo root. Add a pattern here if that ever changes.
+      - '*.json'
       - '.github/workflows/validate-renovate-presets.yml'
   workflow_dispatch:
 
