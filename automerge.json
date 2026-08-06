@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Linchpin maintenance config with automerge enabled. Everything except the automerge behaviour is inherited from the default preset in this repo, which remains the single source of truth for grouping, commit prefixes and package routing. Consume as github>linchpin/renovatebot-config:automerge.",
+  "extends": [
+    "github>linchpin/renovatebot-config"
+  ],
+  "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Automerge non-major npm and Composer updates. The default preset sets automerge: false on each non-major group individually; the rule is uniform, so it is expressed once here.",
+      "matchManagers": [
+        "npm",
+        "composer"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Never automerge majors. Renovate already defaults to false; stated explicitly so a future automerge default in the default preset cannot silently enable it here.",
+      "matchManagers": [
+        "npm",
+        "composer"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
+    },
+    {
+      "description": "Automerge non-major GitHub Actions updates on Monday mornings.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true,
+      "schedule": [
+        "before 6am on monday"
+      ]
+    }
+  ]
+}
