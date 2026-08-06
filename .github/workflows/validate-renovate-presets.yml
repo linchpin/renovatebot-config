@@ -1,0 +1,95 @@
+name: Validate Renovate presets
+
+# Every preset here is consumed live off the default branch by ~40 repositories with no
+# version pinning, so a mistake in this repo reaches all of them on Renovate's next run.
+# This workflow is the only thing standing between a bad edit and org-wide broken
+# dependency updates.
+
+on:
+  pull_request:
+    paths:
+      - '**.json'
+      - '.github/workflows/validate-renovate-presets.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - '**.json'
+      - '.github/workflows/validate-renovate-presets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate presets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Check strict JSON syntax
+        run: |
+          # Renovate parses config with JSON5, so its own validator happily accepts a
+          # trailing comma. These files must stay valid *strict* JSON for every other
+          # tool that reads them, so check that separately.
+          fail=0
+          for file in *.json; do
+            if jq empty "$file" 2>/dev/null; then
+              echo "  ok   $file"
+            else
+              echo "::error file=$file::Not valid strict JSON"
+              jq empty "$file" 2>&1 | sed 's/^/       /'
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Validate against the Renovate schema
+        # --no-global is required: without it the validator checks these files against the
+        # self-hosted *global* schema instead of the repo/preset schema.
+        run: npx --yes --package renovate@44 renovate-config-validator --no-global default.json automerge.json
+
+      - name: Verify every extended preset resolves
+        # The validator does not fetch remote presets, so a typo'd or moved `extends`
+        # reference passes it silently and only fails at runtime, in every consumer at
+        # once. Resolve each reference against the GitHub API instead.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          fail=0
+          for file in *.json; do
+            while read -r ref; do
+              [ -n "$ref" ] || continue
+              spec=${ref#github>}
+              case "$spec" in
+                *//*) repo=${spec%%//*}; path="${spec#*//}.json" ;;
+                *:*)  repo=${spec%%:*};  path="${spec#*:}.json" ;;
+                *)    repo=$spec;        path=default.json ;;
+              esac
+              # Presets always resolve from the target repo's default branch.
+              if gh api "repos/$repo/contents/$path" --silent 2>/dev/null; then
+                echo "  ok   $file: $ref -> $repo/$path"
+              else
+                echo "::error file=$file::Preset '$ref' does not resolve ($repo/$path not found on the default branch)"
+                fail=1
+              fi
+            done < <(jq -r '[.extends?, (.packageRules[]?.extends?)] | flatten | map(select(type == "string")) | .[] | select(startswith("github>"))' "$file")
+          done
+          exit $fail
+
+      - name: Report pending config migrations
+        # Non-blocking on purpose. --strict also fails on deprecations Renovate still
+        # auto-migrates at runtime, which would make this job red without anything being
+        # broken. Surfaced here so the deprecations stay visible and get cleaned up
+        # deliberately rather than blocking unrelated work.
+        continue-on-error: true
+        run: npx --yes --package renovate@44 renovate-config-validator --strict --no-global default.json automerge.json
