@@ -69,6 +69,42 @@ The former `github>linchpin/renovatebot-automerge-config` repository is **deprec
 forwards to `github>linchpin/renovatebot-config:automerge`. Point new and existing projects at
 the preset above.
 
+## Commit prefixes
+
+Every prefix these presets emit is a valid [`@linchpinagency/commitlint-config`](https://github.com/linchpin/commitlint-config)
+type and scope, and maps to a changelog section in
+[`@linchpinagency/release-please-config`](https://github.com/linchpin/release-please-config):
+
+| Prefix | Covers | Changelog section |
+| --- | --- | --- |
+| `wp-plugin(wporg)` | Public plugins via `wp-packages` or `wpackagist` | WordPress Plugins 🔌 |
+| `wp-plugin(linchpin)` | Plugins from `packagist.linchpin.com` | WordPress Plugins 🔌 |
+| `wp-theme(deps)` | Themes from either source | WordPress Themes 🖌️ |
+| `build(npm)` | npm packages inside custom themes and plugins | *hidden* |
+| `build(composer)` | Composer packages inside custom themes and plugins | *hidden* |
+| `build(deps)` | Project-level build and platform dependencies | *hidden* |
+
+`wp-plugin` and `wp-theme` are **types**, not scopes. release-please groups changelog sections
+strictly by commit type — `changelog-sections[].type` is the only key its schema offers — so
+`update(wp-plugin)` and `update(wp-theme)` would share the type `update` and collapse into a
+single section. As types they get a section each, with the source carried in the scope, which
+release-please renders as the bold prefix on each bullet:
+
+```markdown
+### WordPress Plugins 🔌
+
+* **wporg:** Update akismet to v5.3
+* **linchpin:** Update gravityforms to v3 - Major
+```
+
+`commitBody` carries the same prefix as its rule's header. release-please parses those body lines
+into their own changelog bullets, so a body labelled with a different type scatters one grouped
+update across two sections.
+
+Changing a prefix here means changing the type list in `commitlint-config` and the section list in
+`release-please-config` — the latter's test suite asserts the two lists are identical, so a
+mismatch fails CI rather than silently dropping commits from a changelog.
+
 ## Goals of this configuration file
 
 ### General Config
