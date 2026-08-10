@@ -310,7 +310,7 @@
         "!node"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}chore(NO-TASK): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(composer):",
@@ -445,7 +445,7 @@
       "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-theme):",
+      "commitMessagePrefix": "wp-theme(deps):",
       "commitMessageSuffix": " - Major",
       "groupName": "Themes packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-themes-composer-major",
@@ -473,10 +473,10 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-theme(deps): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-theme):",
+      "commitMessagePrefix": "wp-theme(deps):",
       "groupName": "Themes packagist.linchpin.com and wordpress.org",
       "groupSlug": "maintenance-wordpress-themes-composer-minor",
       "labels": [
@@ -507,10 +507,10 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-theme(deps): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-plugin):",
+      "commitMessagePrefix": "wp-plugin(wporg):",
       "commitMessageSuffix": " - Major",
       "groupName": "Plugins wordpress.org",
       "groupSlug": "maintenance-wordpress-org-plugins-composer-major",
@@ -537,10 +537,10 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-plugin(wporg): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-plugin):",
+      "commitMessagePrefix": "wp-plugin(wporg):",
       "groupName": "Plugins wordpress.org",
       "groupSlug": "maintenance-wordpress-org-plugins-composer-minor",
       "labels": [
@@ -571,10 +571,10 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-plugin(wporg): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-plugin):",
+      "commitMessagePrefix": "wp-plugin(linchpin):",
       "commitMessageSuffix": " - Major",
       "groupName": "Plugins packagist.linchpin.com",
       "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-major",
@@ -601,10 +601,10 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-plugin(linchpin): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
-      "commitMessagePrefix": "update(wp-plugin):",
+      "commitMessagePrefix": "wp-plugin(linchpin):",
       "groupName": "Plugins packagist.linchpin.com",
       "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-minor",
       "labels": [
@@ -635,7 +635,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(PLUGIN): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-plugin(linchpin): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     }
   ]
 }
