@@ -473,7 +473,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}wp-theme(deps): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}wp-theme(deps): {{replace '-' ' ' (lookup (split depName '/') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "wp-theme(deps): WordPress",
