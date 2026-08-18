@@ -106,6 +106,19 @@ which is what keeps plugin and theme lines apart inside it, and the tag stays vi
 into their own changelog bullets, so a body labelled with a different type scatters one grouped
 update across two sections.
 
+Each body line names the package and its version change as `old => new`:
+
+```
+build(npm): @wordpress/block-editor 12.26.0 => 13.0.0
+update(wp-plugin): [.org] plugin/akismet 5.2 => 5.3
+```
+
+The old version and the arrow are conditional. Renovate leaves `currentValue` empty for a pin, a
+digest, or a newly added dependency, and a line reading `akismet  => 5.3` looks like a template
+bug rather than an update — so those render as just `akismet 5.3`. Keeping the line short matters:
+`body-max-line-length` is inherited from `config-conventional` at **error** level, capping every
+body line at 100 characters.
+
 Changing a prefix here means changing the type list in `commitlint-config` and the section list in
 `release-please-config` — the latter's test suite asserts the two lists are identical, so a
 mismatch fails CI rather than silently dropping commits from a changelog.

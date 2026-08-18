@@ -59,7 +59,7 @@
         "/^engines$/"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(deps):",
@@ -88,7 +88,7 @@
         "!/^engines$/"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(deps):",
@@ -117,7 +117,7 @@
       "matchFileNames": [
         "composer.json"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(deps):",
@@ -144,7 +144,7 @@
         "composer.json"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(deps):",
@@ -175,7 +175,7 @@
         "composer.json"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(deps): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(npm):",
@@ -210,7 +210,7 @@
         "Confidence"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(npm):",
@@ -247,7 +247,7 @@
         "Confidence"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(npm):",
@@ -282,7 +282,7 @@
         "Confidence"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(npm):",
@@ -310,7 +310,7 @@
         "!node"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} from `{{{upgrade.currentValue}}}` to `{{{upgrade.newValue}}}`\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(npm): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(composer):",
@@ -342,7 +342,7 @@
         "Adoption"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(composer):",
@@ -376,7 +376,7 @@
         "Adoption"
       ],
       "automerge": false,
-      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(composer):",
@@ -408,7 +408,7 @@
         "Age",
         "Adoption"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "build(composer):",
@@ -442,7 +442,7 @@
         "Age",
         "Adoption"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}build(composer): {{{depName}}} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-theme): [.org]",
@@ -474,7 +474,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-theme): [.org]",
@@ -508,7 +508,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-theme): [packagist]",
@@ -539,7 +539,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-theme): [packagist]",
@@ -572,7 +572,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-theme): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-plugin): [.org]",
@@ -602,7 +602,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-plugin): [.org]",
@@ -636,7 +636,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [.org] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-plugin): [packagist]",
@@ -667,7 +667,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     },
     {
       "commitMessagePrefix": "update(wp-plugin): [packagist]",
@@ -702,7 +702,7 @@
         "Package",
         "Change"
       ],
-      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} from {{{upgrade.currentValue}}} to {{{upgrade.newValue}}}\n{{/each}}"
+      "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): [packagist] {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
     }
   ]
 }
