@@ -77,24 +77,29 @@ type and scope, and maps to a changelog section in
 
 | Prefix | Covers | Changelog section |
 | --- | --- | --- |
-| `wp-plugin(wporg)` | Public plugins via `wp-packages` or `wpackagist` | WordPress Plugins 🔌 |
-| `wp-plugin(linchpin)` | Plugins from `packagist.linchpin.com` | WordPress Plugins 🔌 |
-| `wp-theme(deps)` | Themes from either source | WordPress Themes 🖌️ |
+| `update(wp-plugin): [.org]` | Public plugins via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
+| `update(wp-plugin): [packagist]` | Plugins from `packagist.linchpin.com` | Changes to Existing Features 💅 |
+| `update(wp-theme): [.org]` | Public themes via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
+| `update(wp-theme): [packagist]` | Themes from `packagist.linchpin.com` | Changes to Existing Features 💅 |
 | `build(npm)` | npm packages inside custom themes and plugins | *hidden* |
 | `build(composer)` | Composer packages inside custom themes and plugins | *hidden* |
 | `build(deps)` | Project-level build and platform dependencies | *hidden* |
 
-`wp-plugin` and `wp-theme` are **types**, not scopes. release-please groups changelog sections
-strictly by commit type — `changelog-sections[].type` is the only key its schema offers — so
-`update(wp-plugin)` and `update(wp-theme)` would share the type `update` and collapse into a
-single section. As types they get a section each, with the source carried in the scope, which
-release-please renders as the bold prefix on each bullet:
+`wp-plugin` and `wp-theme` are **scopes**, not types. The type says what happened — `update` for a
+bump — and the scope says what it happened to. A package's registry travels in the bracketed tag,
+which is what the scope slot used to carry.
+
+release-please groups changelog sections strictly by commit type — `changelog-sections[].type` is the
+only key its schema offers, there is no scope key — so WordPress updates share the section `update`
+maps to rather than getting one of their own. The scope renders as the bold prefix on each bullet,
+which is what keeps plugin and theme lines apart inside it, and the tag stays visible in the text:
 
 ```markdown
-### WordPress Plugins 🔌
+### Changes to Existing Features 💅
 
-* **wporg:** Update akismet to v5.3
-* **linchpin:** Update gravityforms to v3 - Major
+* **wp-plugin:** [.org] Update Plugins wordpress.org
+* **wp-plugin:** [packagist] Update Plugins packagist.linchpin.com
+* **wp-theme:** [.org] Update Themes wordpress.org
 ```
 
 `commitBody` carries the same prefix as its rule's header. release-please parses those body lines
@@ -133,8 +138,14 @@ mismatch fails CI rather than silently dropping commits from a changelog.
 - Create individual pull requests for any [major] **plugin** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
 
 #### WordPress Themes
-- Group all [minor, patch, bump] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` into a single pull request
-- Create individual pull requests for any [major] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
+- Group all [minor, patch, bump] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) into a single pull request, tagged `[.org]`
+- Group all [minor, patch, bump] **theme** updates from `packagist.linchpin.com` into a single pull request, tagged `[packagist]`
+- Create individual pull requests for any [major] **theme** updates from either source, reviewed by a human before merging
+
+Themes are split by source so each group can carry an honest `[.org]` or `[packagist]` tag. Note that
+`linchpin/**` matches Linchpin themes as well as plugins, so the plugin rules exclude
+`!linchpin/**theme` — without that exclusion the plugin rules sit later in `packageRules` and would
+win, routing Linchpin themes into the plugin group.
 
 ### Linchpin Built Custom WordPress Plugins
 
