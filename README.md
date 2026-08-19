@@ -75,34 +75,34 @@ Every prefix these presets emit is a valid [`@linchpinagency/commitlint-config`]
 type and scope, and maps to a changelog section in
 [`@linchpinagency/release-please-config`](https://github.com/linchpin/release-please-config):
 
-| Prefix | Covers | Changelog section |
+| Header | Covers | Changelog section |
 | --- | --- | --- |
-| `update(wp-plugin): [.org]` | Public plugins via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
-| `update(wp-plugin): [packagist]` | Plugins from `packagist.linchpin.com` | Changes to Existing Features 💅 |
-| `update(wp-theme): [.org]` | Public themes via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
-| `update(wp-theme): [packagist]` | Themes from `packagist.linchpin.com` | Changes to Existing Features 💅 |
+| `update(wp-plugin): Update Plugins from wordpress.org` | Public plugins via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
+| `update(wp-plugin): Update Plugins from Packagist` | Plugins from `packagist.linchpin.com` | Changes to Existing Features 💅 |
+| `update(wp-theme): Update Themes from wordpress.org` | Public themes via `wp-packages` or `wpackagist` | Changes to Existing Features 💅 |
+| `update(wp-theme): Update Themes from Packagist` | Themes from `packagist.linchpin.com` | Changes to Existing Features 💅 |
 | `build(npm)` | npm packages inside custom themes and plugins | *hidden* |
 | `build(composer)` | Composer packages inside custom themes and plugins | *hidden* |
 | `build(deps)` | Project-level build and platform dependencies | *hidden* |
 
 `wp-plugin` and `wp-theme` are **scopes**, not types. The type says what happened — `update` for a
-bump — and the scope says what it happened to. A package's registry travels in the bracketed tag,
-which is what the scope slot used to carry.
+bump — and the scope says what it happened to. `Update`/`Add` is Renovate's own action word, and a
+package's registry travels in the header topic as `from wordpress.org` or `from Packagist`.
 
 release-please groups changelog sections strictly by commit type — `changelog-sections[].type` is the
 only key its schema offers, there is no scope key — so WordPress updates share the section `update`
 maps to rather than getting one of their own. The scope renders as the bold prefix on each bullet,
-which is what keeps plugin and theme lines apart inside it, and the tag stays visible in the text:
+which is what keeps plugin and theme lines apart inside it, and the source stays visible in the text:
 
 ```markdown
 ### Changes to Existing Features 💅
 
-* **wp-plugin:** [.org] Update Plugins wordpress.org
-* **wp-plugin:** [packagist] Update Plugins packagist.linchpin.com
-* **wp-theme:** [.org] Update Themes wordpress.org
+* **wp-plugin:** Update Plugins from wordpress.org
+* **wp-plugin:** Update Plugins from Packagist
+* **wp-theme:** Update Themes from wordpress.org
 ```
 
-`commitBody` carries the same prefix as its rule's header. release-please parses those body lines
+`commitBody` carries the same `type(scope):` prefix as its rule's header. release-please parses those body lines
 into their own changelog bullets, so a body labelled with a different type scatters one grouped
 update across two sections.
 
@@ -110,7 +110,7 @@ Each body line names the package and its version change as `old => new`:
 
 ```
 build(npm): @wordpress/block-editor 12.26.0 => 13.0.0
-update(wp-plugin): [.org] plugin/akismet 5.2 => 5.3
+update(wp-plugin): plugin/akismet 5.2 => 5.3
 ```
 
 The old version and the arrow are conditional. Renovate leaves `currentValue` empty for a pin, a
@@ -151,11 +151,11 @@ mismatch fails CI rather than silently dropping commits from a changelog.
 - Create individual pull requests for any [major] **plugin** updates from `wp-packages` or `wpackagist` (wordpress.org) and `packagist.linchpin.com` reviewed by a human before merging
 
 #### WordPress Themes
-- Group all [minor, patch, bump] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) into a single pull request, tagged `[.org]`
-- Group all [minor, patch, bump] **theme** updates from `packagist.linchpin.com` into a single pull request, tagged `[packagist]`
+- Group all [minor, patch, bump] **theme** updates from `wp-packages` or `wpackagist` (wordpress.org) into a single pull request, headed `Update Themes from wordpress.org`
+- Group all [minor, patch, bump] **theme** updates from `packagist.linchpin.com` into a single pull request, headed `Update Themes from Packagist`
 - Create individual pull requests for any [major] **theme** updates from either source, reviewed by a human before merging
 
-Themes are split by source so each group can carry an honest `[.org]` or `[packagist]` tag. Note that
+Themes are split by source so each group can carry an honest `from wordpress.org` or `from Packagist` header. Note that
 `linchpin/**` matches Linchpin themes as well as plugins, so the plugin rules exclude
 `!linchpin/**theme` — without that exclusion the plugin rules sit later in `packageRules` and would
 win, routing Linchpin themes into the plugin group.
