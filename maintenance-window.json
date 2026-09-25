@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Linchpin hybrid maintenance window: routing only. Non-majors and lock-file maintenance stack on the current maintenance/YYYY-MM window, which merges with one review; majors are raised against the default branch as their own PRs. Add it AFTER github>linchpin/renovatebot-config or github>linchpin/renovatebot-config:automerge; it does not extend either, so it cannot re-apply the default preset's rules over the automerge ones. Consume as github>linchpin/renovatebot-config:maintenance-window.",
+  "baseBranchPatterns": [
+    "$default",
+    "/^maintenance\\/\\d{4}-\\d{2}$/"
+  ],
+  "packageRules": [
+    {
+      "description": "Majors never ride in the window. Each is its own reviewed PR against the default branch, so one breaking major cannot strand the batch - maintenance/2026-07 on linchpin.com carried three majors and a Babel 8 regression, and its safe bumps had to be salvaged by hand.",
+      "matchBaseBranches": [
+        "/^maintenance\\//"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Non-majors and lock-file maintenance stack on the window, where one review merges the month, and never on the default branch. Negated rather than naming main, because some repositories default to master.",
+      "matchBaseBranches": [
+        "!/^maintenance\\//"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest",
+        "lockFileMaintenance"
+      ],
+      "enabled": false
+    }
+  ]
+}
