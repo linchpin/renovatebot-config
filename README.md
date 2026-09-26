@@ -106,6 +106,14 @@ What the consuming repository needs for it to work:
 - **A merge method that keeps one commit per group** — merge commits, or rebase merges. A
   squash collapses the month into one commit, and release-please drops it from the changelog.
 
+**Linchpin's own packages skip the window.** Anything Linchpin publishes (discovery,
+linchpin-blocks, hive, mantle, psst, the docs plugins, docspress-blocks, coding-standards and
+`@linchpinagency/*`) goes straight to the default branch, because each release was already
+reviewed in its own repository. The list lives in [`maintenance-window.json`](maintenance-window.json)
+and is explicit, since `linchpin/**` also covers third-party plugins mirrored on
+packagist.linchpin.com, which stay in the window. Add a Linchpin package there the first time a
+repository consumes it.
+
 Security fixes are raised per base branch like any other update. Renovate does not document
 whether an `enabled: false` rule suppresses them on the default branch, so check the
 Dependency Dashboard after the first run on a new repository.
@@ -172,6 +180,7 @@ mismatch fails CI rather than silently dropping commits from a changelog.
 
 ### General Config
 - With the `maintenance-window` add-on: non-majors batch into the window, majors get their own PRs against the default branch
+- With the `maintenance-window` add-on: Linchpin's own packages skip the window and go straight to the default branch
 - Group all pull requests into a `maintenance/MM-YYYY` named branch
 
 ### Project Build Config
