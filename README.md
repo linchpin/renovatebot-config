@@ -21,13 +21,15 @@
 
 ## Available presets
 
-This repository hosts two presets. Extend **one** of them — `automerge` already pulls in
-everything from `default`, so extending both is redundant.
+This repository hosts two base presets and one add-on. Extend **one** base preset —
+`automerge` already pulls in everything from `default`, so extending both is redundant — and
+optionally the maintenance-window add-on **after** it.
 
 | Preset | Extend with | File | Use when |
 | --- | --- | --- | --- |
 | Default | `github>linchpin/renovatebot-config` | [`default.json`](default.json) | Every update waits for a human to merge it |
 | Automerge | `github>linchpin/renovatebot-config:automerge` | [`automerge.json`](automerge.json) | Non-major updates should merge themselves |
+| Maintenance window *(add-on)* | `github>linchpin/renovatebot-config:maintenance-window` | [`maintenance-window.json`](maintenance-window.json) | Non-majors should batch into one monthly window and majors get their own PRs. **Opt-in**; see below |
 
 `automerge.json` extends `github>linchpin/renovatebot-config` and changes **only** the automerge
 behaviour. Grouping, commit prefixes, labels and package routing are defined once in
@@ -64,6 +66,49 @@ project — credentials, ignored paths, and local overrides:
 > For the `automerge` preset to actually merge anything, the consuming repository must allow it:
 > **Repo → Settings → General → "Allow auto-merge"**. Without that setting Renovate opens the
 > PRs and they sit there waiting.
+
+### Maintenance window (hybrid routing)
+
+The base presets route **every** update into the monthly `maintenance/YYYY-MM` window, majors
+included. One breaking major then strands the whole batch, and a window left unmerged collects
+a copy of every update. The add-on splits the traffic:
+
+| Update | Raised against | Merged by |
+| --- | --- | --- |
+| Minor, patch, pin, digest, lock-file maintenance | The `maintenance/YYYY-MM` window | Automerge into the window, then one review of the window PR |
+| Major | The default branch, one PR each | A human, after reading the changelog |
+
+It is **routing only** and deliberately extends nothing: extending `default` from inside it
+would re-apply the default rules (every group `automerge: false`) after `automerge`'s, and
+silently switch automerge off. List it last:
+
+```json
+{
+  "extends": [
+    "config:recommended",
+    "github>linchpin/renovatebot-config:automerge",
+    "github>linchpin/renovatebot-config:maintenance-window"
+  ]
+}
+```
+
+What the consuming repository needs for it to work:
+
+- **No `baseBranchPatterns` (or `baseBranches`) of its own.** A repo-level value replaces the
+  preset's, and the routing is lost.
+- **Exactly one open window.** Renovate raises updates against every branch the pattern
+  matches, so an unmerged older window collects its own copy of each non-major. Merge a window
+  before the next one fills, or collapse to one — the `maintenance-window` skill in
+  [`linchpin/skills`](https://github.com/linchpin/skills) owns that procedure.
+- **Something to open and merge windows** — the `maintenance.yml` and `auto-merge-maintenance.yml`
+  callers from [`linchpin/actions`](https://github.com/linchpin/actions), or the `automerge`
+  preset with `ignoreTests: true` where no checks run on PRs into the window.
+- **A merge method that keeps one commit per group** — merge commits, or rebase merges. A
+  squash collapses the month into one commit, and release-please drops it from the changelog.
+
+Security fixes are raised per base branch like any other update. Renovate does not document
+whether an `enabled: false` rule suppresses them on the default branch, so check the
+Dependency Dashboard after the first run on a new repository.
 
 The former `github>linchpin/renovatebot-automerge-config` repository is **deprecated** and now
 forwards to `github>linchpin/renovatebot-config:automerge`. Point new and existing projects at
@@ -126,6 +171,7 @@ mismatch fails CI rather than silently dropping commits from a changelog.
 ## Goals of this configuration file
 
 ### General Config
+- With the `maintenance-window` add-on: non-majors batch into the window, majors get their own PRs against the default branch
 - Group all pull requests into a `maintenance/MM-YYYY` named branch
 
 ### Project Build Config

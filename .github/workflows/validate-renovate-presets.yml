@@ -58,7 +58,7 @@ jobs:
       - name: Validate against the Renovate schema
         # --no-global is required: without it the validator checks these files against the
         # self-hosted *global* schema instead of the repo/preset schema.
-        run: npx --yes --package renovate@44 renovate-config-validator --no-global default.json automerge.json
+        run: npx --yes --package renovate@44 renovate-config-validator --no-global default.json automerge.json maintenance-window.json
 
       - name: Verify every extended preset resolves
         # The validator does not fetch remote presets, so a typo'd or moved `extends`
@@ -94,4 +94,4 @@ jobs:
         # broken. Surfaced here so the deprecations stay visible and get cleaned up
         # deliberately rather than blocking unrelated work.
         continue-on-error: true
-        run: npx --yes --package renovate@44 renovate-config-validator --strict --no-global default.json automerge.json
+        run: npx --yes --package renovate@44 renovate-config-validator --strict --no-global default.json automerge.json maintenance-window.json
