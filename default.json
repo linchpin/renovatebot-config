@@ -543,7 +543,7 @@
     },
     {
       "commitMessagePrefix": "update(wp-theme):",
-      "groupName": "Themes from Packagist",
+      "groupName": "Themes packagist.linchpin.com",
       "groupSlug": "maintenance-wordpress-linchpin-themes-composer-minor",
       "labels": [
         "wordpress",
@@ -671,7 +671,7 @@
     },
     {
       "commitMessagePrefix": "update(wp-plugin):",
-      "groupName": "Plugins from Packagist",
+      "groupName": "Plugins packagist.linchpin.com",
       "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-minor",
       "labels": [
         "wordpress",
