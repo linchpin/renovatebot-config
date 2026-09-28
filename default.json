@@ -447,7 +447,7 @@
     {
       "commitMessagePrefix": "update(wp-theme):",
       "commitMessageSuffix": " - Major",
-      "groupName": "Themes wordpress.org",
+      "groupName": "Themes from wordpress.org",
       "groupSlug": "maintenance-wordpress-org-themes-composer-major",
       "labels": [
         "wordpress",
@@ -478,7 +478,7 @@
     },
     {
       "commitMessagePrefix": "update(wp-theme):",
-      "groupName": "Themes wordpress.org",
+      "groupName": "Themes from wordpress.org",
       "groupSlug": "maintenance-wordpress-org-themes-composer-minor",
       "labels": [
         "wordpress",
@@ -513,7 +513,7 @@
     {
       "commitMessagePrefix": "update(wp-theme):",
       "commitMessageSuffix": " - Major",
-      "groupName": "Themes packagist.linchpin.com",
+      "groupName": "Themes from Packagist",
       "groupSlug": "maintenance-wordpress-linchpin-themes-composer-major",
       "labels": [
         "wordpress",
@@ -577,7 +577,7 @@
     {
       "commitMessagePrefix": "update(wp-plugin):",
       "commitMessageSuffix": " - Major",
-      "groupName": "Plugins wordpress.org",
+      "groupName": "Plugins from wordpress.org",
       "groupSlug": "maintenance-wordpress-org-plugins-composer-major",
       "labels": [
         "wordpress",
@@ -606,7 +606,7 @@
     },
     {
       "commitMessagePrefix": "update(wp-plugin):",
-      "groupName": "Plugins wordpress.org",
+      "groupName": "Plugins from wordpress.org",
       "groupSlug": "maintenance-wordpress-org-plugins-composer-minor",
       "labels": [
         "wordpress",
@@ -641,7 +641,7 @@
     {
       "commitMessagePrefix": "update(wp-plugin):",
       "commitMessageSuffix": " - Major",
-      "groupName": "Plugins packagist.linchpin.com",
+      "groupName": "Plugins from Packagist",
       "groupSlug": "maintenance-wordpress-linchpin-plugins-composer-major",
       "labels": [
         "wordpress",

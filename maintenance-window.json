@@ -1,0 +1,73 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Linchpin hybrid maintenance window: routing only. Non-majors and lock-file maintenance stack on the current maintenance/YYYY-MM window, which merges with one review; majors are raised against the default branch as their own PRs. Linchpin's own packages skip the window and go straight to the default branch. Add it AFTER github>linchpin/renovatebot-config or github>linchpin/renovatebot-config:automerge; it does not extend either, so it cannot re-apply the default preset's rules over the automerge ones. Consume as github>linchpin/renovatebot-config:maintenance-window.",
+  "baseBranchPatterns": [
+    "$default",
+    "/^maintenance\\/\\d{4}-\\d{2}$/"
+  ],
+  "packageRules": [
+    {
+      "description": "Majors never ride in the window. Each is its own reviewed PR against the default branch, so one breaking major cannot strand the batch - maintenance/2026-07 on linchpin.com carried three majors and a Babel 8 regression, and its safe bumps had to be salvaged by hand.",
+      "matchBaseBranches": [
+        "/^maintenance\\//"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Non-majors and lock-file maintenance stack on the window, where one review merges the month, and never on the default branch. Negated rather than naming main, because some repositories default to master.",
+      "matchBaseBranches": [
+        "!/^maintenance\\//"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest",
+        "lockFileMaintenance"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Linchpin's own packages skip the window. Each release was already reviewed and released from its own repository, so waiting a month to consume it only delays it: an update to discovery or linchpin-blocks goes straight to the default branch, where the consuming repository's own automerge rules apply. The list is explicit because linchpin/** also covers third-party plugins mirrored on packagist.linchpin.com (Gravity Forms, WooCommerce Subscriptions, WooCommerce API Manager, Pressable Cache Management, spellbook); those are someone else's releases and stay in the window. Add a Linchpin package here the first time a repository consumes it. This rule must stay AFTER the non-major rule above, because the later rule wins.",
+      "matchPackageNames": [
+        "linchpin/coding-standards",
+        "linchpin/discovery",
+        "linchpin/docspress-blocks",
+        "linchpin/hive",
+        "linchpin/linchpin-blocks",
+        "linchpin/linchpin-docs-access",
+        "linchpin/linchpin-docs-ai",
+        "linchpin/mantle",
+        "linchpin/psst",
+        "@linchpinagency/**"
+      ],
+      "matchBaseBranches": [
+        "!/^maintenance\\//"
+      ],
+      "enabled": true
+    },
+    {
+      "description": "The other half of the rule above: Linchpin's own packages never ride in a window, so one release cannot arrive twice, once on the default branch and again in the month's batch.",
+      "matchPackageNames": [
+        "linchpin/coding-standards",
+        "linchpin/discovery",
+        "linchpin/docspress-blocks",
+        "linchpin/hive",
+        "linchpin/linchpin-blocks",
+        "linchpin/linchpin-docs-access",
+        "linchpin/linchpin-docs-ai",
+        "linchpin/mantle",
+        "linchpin/psst",
+        "@linchpinagency/**"
+      ],
+      "matchBaseBranches": [
+        "/^maintenance\\//"
+      ],
+      "enabled": false
+    }
+  ]
+}
