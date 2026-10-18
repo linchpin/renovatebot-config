@@ -49,6 +49,16 @@
       "schedule": [
         "before 6am on monday"
       ]
+    },
+    {
+      "description": "Never automerge an npm override, not even a patch: it forces a package past the range its parent asks for, so the parent can break. The default preset says the same, but the non-major automerge rule above runs after it and would otherwise win.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "overrides"
+      ],
+      "automerge": false
     }
   ]
 }

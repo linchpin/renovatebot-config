@@ -114,13 +114,55 @@ and is explicit, since `linchpin/**` also covers third-party plugins mirrored on
 packagist.linchpin.com, which stay in the window. Add a Linchpin package there the first time a
 repository consumes it.
 
-Security fixes are raised per base branch like any other update. Renovate does not document
-whether an `enabled: false` rule suppresses them on the default branch, so check the
-Dependency Dashboard after the first run on a new repository.
+Security fixes are raised per base branch like any other update, and the window's
+`enabled: false` rules apply to them too: Renovate raises a fix for a dependency a `packageRules`
+entry disables only when `vulnerabilityAlerts.enabled` is `true`, which these presets do not set.
+A non-major security fix therefore lands in the window, not on the default branch. See
+[Security fixes](#security-fixes).
 
 The former `github>linchpin/renovatebot-automerge-config` repository is **deprecated** and now
 forwards to `github>linchpin/renovatebot-config:automerge`. Point new and existing projects at
 the preset above.
+
+## Security fixes
+
+Renovate applies security fixes; Dependabot only reports them. Keep Dependabot **alerts** on —
+they are the feed `vulnerabilityAlerts` reads — and switch off Dependabot **security updates**,
+the PR opener, on every repository that uses these presets. A Dependabot security update edits
+only the lock file, which lock-file maintenance already rewrites, so it lands stale and fights
+Renovate:
+
+```bash
+gh api -X DELETE repos/linchpin/<repo>/automated-security-fixes   # alerts unaffected
+```
+
+Where a fix lands depends on where the vulnerable package is named:
+
+| The vulnerable package is | Renovate's fix |
+| --- | --- |
+| A direct dependency | Bumps its range in `package.json` or `composer.json` |
+| Transitive, and an `overrides` entry names it | Bumps the override value |
+| Transitive, with no override | Nothing. Renovate only updates what a manifest names. Lock-file maintenance reaches it when the parent's range already allows the fix; otherwise add a scoped override that names the stuck parent (the `dependency-updates` skill in [`linchpin/skills`](https://github.com/linchpin/skills) has the recipe), and Renovate maintains it from then on |
+
+`vulnerabilityAlerts.rangeStrategy` is `bump` because Renovate's own default for security fixes
+is `update-lockfile`: a fix inside the current range would change only the lock file and leave
+the override, or the direct range, still admitting the vulnerable version.
+
+One blind spot: Renovate reads an override's locked version only from the top-level
+`node_modules/<name>` lock entry. When npm nests the overridden copy under its parent (because
+another copy of the same package sits at the top level), Renovate assumes the newest version the
+override's range allows, so it raises nothing for a fix that range already admits. The weekly
+lock-file maintenance picks those up; the Dependabot alert stays open until it does.
+
+Security fixes skip schedules and PR limits, but not base branches. The default preset targets
+only `maintenance/*`, so a repository with no open window gets no fixes at all. The
+`maintenance-window` add-on does not change that for non-major fixes, which it keeps off the
+default branch. A repository that should get fixes without a window sets
+`"baseBranchPatterns": ["$default"]` of its own.
+
+Every override update, security fix or not, is its own PR labelled `overrides`, and none
+automerges, in the `automerge` preset too. An override forces a package past the range its
+parent asked for, so each bump earns a look at whether the parent still works.
 
 ## Commit prefixes
 
