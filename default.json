@@ -17,6 +17,12 @@
       "Change": "All locks refreshed"
     }
   },
+  "vulnerabilityAlerts": {
+    "rangeStrategy": "bump",
+    "addLabels": [
+      "security"
+    ]
+  },
   "ignoreDeps": [
     "husky",
     "node",
@@ -703,6 +709,24 @@
         "Change"
       ],
       "commitBody": "{{#each upgrades as |upgrade|}}update(wp-plugin): {{replace '-' ' ' (lookup (split depName '-') 1 ) }} {{#if upgrade.currentValue}}{{{upgrade.currentValue}}} => {{/if}}{{{upgrade.newValue}}}\n{{/each}}"
+    },
+    {
+      "description": "npm overrides force a transitive package past the range its parent asks for, so bumping one can break that parent. Each gets its own PR (never grouped, so one breaking override cannot hold back the rest), is never automerged, and carries the overrides label (set through labels, not addLabels, because a security fix forces its own addLabels and would drop it). A security fix to an override arrives the same way, as its own [SECURITY] PR that rewrites the override value, because vulnerabilityAlerts uses rangeStrategy bump.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "overrides"
+      ],
+      "groupName": null,
+      "commitMessagePrefix": "build(deps):",
+      "labels": [
+        "npm",
+        "maintenance",
+        "build",
+        "overrides"
+      ],
+      "automerge": false
     }
   ]
 }
