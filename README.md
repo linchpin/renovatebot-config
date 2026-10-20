@@ -142,7 +142,7 @@ Where a fix lands depends on where the vulnerable package is named:
 | --- | --- |
 | A direct dependency | Bumps its range in `package.json` or `composer.json` |
 | Transitive, and an `overrides` entry names it | Bumps the override value |
-| Transitive, with no override | Nothing. Renovate only updates what a manifest names. Lock-file maintenance reaches it when the parent's range already allows the fix; otherwise add a scoped override that names the stuck parent (the `dependency-updates` skill in [`linchpin/skills`](https://github.com/linchpin/skills) has the recipe), and Renovate maintains it from then on |
+| Transitive, with no override | Nothing. Renovate only updates what a manifest names. Add a scoped override that names the parent bringing it in — even when lock-file maintenance would reach the fix, because a lock-file-only fix leaves the manifest admitting the vulnerable version. Renovate maintains the override from then on. The [`security-updates`](https://github.com/linchpin/skills/tree/main/skills/security-updates) skill in `linchpin/skills` has the recipe and when an override comes out |
 
 `vulnerabilityAlerts.rangeStrategy` is `bump` because Renovate's own default for security fixes
 is `update-lockfile`: a fix inside the current range would change only the lock file and leave
@@ -151,8 +151,10 @@ the override, or the direct range, still admitting the vulnerable version.
 One blind spot: Renovate reads an override's locked version only from the top-level
 `node_modules/<name>` lock entry. When npm nests the overridden copy under its parent (because
 another copy of the same package sits at the top level), Renovate assumes the newest version the
-override's range allows, so it raises nothing for a fix that range already admits. The weekly
-lock-file maintenance picks those up; the Dependabot alert stays open until it does.
+override's range allows, so it raises nothing for a fix that range already admits. Lock-file
+maintenance would eventually resolve a safe version, but that is the lock-file-only fix the
+standard rejects: raise the override's floor to the patched version by hand. The Dependabot
+alert stays open until someone does.
 
 Security fixes skip schedules and PR limits, but not base branches. The default preset targets
 only `maintenance/*`, so a repository with no open window gets no fixes at all. The
