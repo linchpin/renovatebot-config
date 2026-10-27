@@ -21,15 +21,16 @@
 
 ## Available presets
 
-This repository hosts two base presets and one add-on. Extend **one** base preset —
+This repository hosts two base presets and two add-ons. Extend **one** base preset —
 `automerge` already pulls in everything from `default`, so extending both is redundant — and
-optionally the maintenance-window add-on **after** it.
+optionally **one** add-on **after** it: rolling maintenance or the maintenance window, never both.
 
 | Preset | Extend with | File | Use when |
 | --- | --- | --- | --- |
 | Default | `github>linchpin/renovatebot-config` | [`default.json`](default.json) | Every update waits for a human to merge it |
 | Automerge | `github>linchpin/renovatebot-config:automerge` | [`automerge.json`](automerge.json) | Non-major updates should merge themselves |
 | Maintenance window *(add-on)* | `github>linchpin/renovatebot-config:maintenance-window` | [`maintenance-window.json`](maintenance-window.json) | Non-majors should batch into one monthly window and majors get their own PRs. **Opt-in**; see below |
+| Rolling maintenance *(add-on)* | `github>linchpin/renovatebot-config:rolling-maintenance` | [`rolling-maintenance.json`](rolling-maintenance.json) | Non-majors go to one permanent `maintenance` branch that Sisyphus tests nightly and promotes by snapshot PR. Replaces the window. **Opt-in**; see [Rolling maintenance](#rolling-maintenance) |
 
 `automerge.json` extends `github>linchpin/renovatebot-config` and changes **only** the automerge
 behaviour. Grouping, commit prefixes, labels and package routing are defined once in
@@ -119,6 +120,36 @@ Security fixes are raised per base branch like any other update, and the window'
 entry disables only when `vulnerabilityAlerts.enabled` is `true`, which these presets do not set.
 A non-major security fix therefore lands in the window, not on the default branch. See
 [Security fixes](#security-fixes).
+
+### Rolling maintenance
+
+The rolling add-on replaces the monthly window with one permanent `maintenance` branch.
+linchpin/actions `rolling-maintenance.yml` keeps it level with the default branch and merges
+green updates into it; Sisyphus on packagist.linchpin.com copies production to dev each night,
+deploys `maintenance` there and tests it; a passing night becomes a snapshot PR a person merges.
+`bin/convert-repo` in [`linchpin/actions`](https://github.com/linchpin/actions) moves a
+repository onto it.
+
+```json
+{
+  "extends": [
+    "config:recommended",
+    "github>linchpin/renovatebot-config",
+    "github>linchpin/renovatebot-config:rolling-maintenance"
+  ]
+}
+```
+
+- **No `baseBranchPatterns` of its own**, as with the window, and no maintenance-window add-on.
+- **Non-majors and lock-file maintenance** go to `maintenance` only, labelled `automerge-safe`,
+  which the rolling job merges once green. PHPStan never carries the label, so it waits for a
+  person's approval, as does every major Renovate raises there.
+- **Third-party majors** are their own PRs against the default branch.
+- **Linchpin's dev tools and libraries** (coding-standards, docspress-blocks,
+  `@linchpinagency/*`) go to `maintenance`, majors included, so the two branches never both move
+  `composer.json`.
+- **Linchpin's own plugins** go to the default branch. Where Linchpin Governing raises them
+  instead, disable exactly the packages it watches in a rule after the preset, as linchpin.com does.
 
 The former `github>linchpin/renovatebot-automerge-config` repository is **deprecated** and now
 forwards to `github>linchpin/renovatebot-config:automerge`. Point new and existing projects at
