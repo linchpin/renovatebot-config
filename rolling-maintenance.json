@@ -1,0 +1,134 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Linchpin rolling maintenance: routing and labels only. Non-majors and lock-file maintenance go to one permanent maintenance branch, which linchpin/actions rolling-maintenance.yml keeps level with the default branch and merges green updates into, and which reaches production only through a snapshot PR a person merges. Third-party majors are raised against the default branch as their own PRs. Replaces the maintenance-window add-on; never extend both. Add it AFTER github>linchpin/renovatebot-config or github>linchpin/renovatebot-config:automerge; it does not extend either. Consume as github>linchpin/renovatebot-config:rolling-maintenance.",
+  "baseBranchPatterns": [
+    "$default",
+    "maintenance"
+  ],
+  "packageRules": [
+    {
+      "description": "Majors never ride in maintenance: each is its own reviewed PR against the default branch, so one breaking major cannot hold up the rest.",
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Non-majors and lock-file maintenance go to maintenance and never to the default branch, where they would reach production without the nightly test. Negated rather than naming main, because some repositories default to master.",
+      "matchBaseBranches": [
+        "!maintenance"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "pinDigest",
+        "lockFileMaintenance"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Linchpin's dev tools and libraries go to maintenance, majors included, and skip any minimum release age: linchpin/coding-standards, the DocsPress blocks and the @linchpinagency npm packages. A major still waits for a person's approval there, because it carries no automerge-safe label. Keeping them off the default branch stops both branches changing composer.json, which conflicts composer.lock on its content-hash. Must stay AFTER the major rule above, because the later rule wins. The list is explicit because linchpin/** also covers third-party plugins mirrored on packagist.linchpin.com.",
+      "matchPackageNames": [
+        "linchpin/coding-standards",
+        "linchpin/docspress-blocks",
+        "@linchpinagency/**"
+      ],
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "enabled": true,
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "The other half of the rule above: those packages are never raised against the default branch, so one release cannot arrive twice.",
+      "matchPackageNames": [
+        "linchpin/coding-standards",
+        "linchpin/docspress-blocks",
+        "@linchpinagency/**"
+      ],
+      "matchBaseBranches": [
+        "!maintenance"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Linchpin's own plugins go straight to the default branch, as in the maintenance window: each release was already reviewed in its own repository. A repository where Linchpin Governing on packagist.linchpin.com raises them (governing/bump-* PRs, merged by linchpin/actions governing-merge) disables them in a rule of its own after this preset, listing exactly the packages Governing watches, or each release arrives twice.",
+      "matchPackageNames": [
+        "linchpin/discovery",
+        "linchpin/hive",
+        "linchpin/linchpin-blocks",
+        "linchpin/linchpin-docs-access",
+        "linchpin/linchpin-docs-ai",
+        "linchpin/mantle",
+        "linchpin/psst"
+      ],
+      "matchBaseBranches": [
+        "!maintenance"
+      ],
+      "enabled": true
+    },
+    {
+      "description": "The other half of the rule above: Linchpin's own plugins never ride in maintenance.",
+      "matchPackageNames": [
+        "linchpin/discovery",
+        "linchpin/hive",
+        "linchpin/linchpin-blocks",
+        "linchpin/linchpin-docs-access",
+        "linchpin/linchpin-docs-ai",
+        "linchpin/mantle",
+        "linchpin/psst"
+      ],
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Lock-file maintenance into maintenance is automerge-safe: it only moves locks within the existing ranges, CI checks it, and the snapshot PR checks it again. linchpin/actions rolling-maintenance merges an automerge-safe PR once it is green, and any other only once a person approves it. A rule of its own because the rule below matches on depName, which lock-file maintenance does not have.",
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "addLabels": [
+        "automerge-safe"
+      ]
+    },
+    {
+      "description": "Non-major npm and Composer updates into maintenance are automerge-safe. PHPStan and its phpstan/phpstan-* extensions are excluded here rather than in a later rule: addLabels accumulate across rules and cannot be taken back, so a later rule could not remove the label, and a new PHPStan release can fail a green branch's analysis.",
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "matchManagers": [
+        "npm",
+        "composer"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin",
+        "pinDigest"
+      ],
+      "matchDepNames": [
+        "!/^phpstan\\/phpstan(-.+)?$/"
+      ],
+      "addLabels": [
+        "automerge-safe"
+      ]
+    },
+    {
+      "description": "Rebase a PR into maintenance only when it conflicts. The rolling job merges a green PR there whether or not it is behind, because the snapshot PR checks the combination before production sees it; rebasing every open PR after each merge only re-runs CI. A red one is asked to retry instead, once something other than another update changes the branch under it.",
+      "matchBaseBranches": [
+        "maintenance"
+      ],
+      "rebaseWhen": "conflicted"
+    }
+  ]
+}
